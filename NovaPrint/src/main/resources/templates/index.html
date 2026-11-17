@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="~{fragments/header :: head('Impresiones y copias')}"></head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<section id="inicio" class="hero-section">
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="display-3 fw-bold text-white">Tus documentos listos mientras esperas</h1>
+                <p class="lead mt-3 text-white-50">
+                    Fotocopias, impresiones, planos, escaneo, anillado y plastificado.
+                    Atención rápida y precios claros.
+                </p>
+                <div class="mt-4">
+                    <a href="#servicios" class="btn btn-accent btn-lg me-2">Ver servicios</a>
+                    <a href="#contacto" class="btn btn-outline-light btn-lg">Contáctanos</a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="cmyk-stack" aria-hidden="true">
+                    <span class="c"></span><span class="m"></span><span class="y"></span><span class="k"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="servicios" class="section">
+    <div class="container">
+        <h2 class="section-title">Lo que hacemos</h2>
+        <p class="section-sub">Precios por unidad en blanco y negro.</p>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4" th:each="s : ${servicios}">
+                <div class="card servicio-card h-100">
+                    <div class="card-body">
+                        <i class="fas fa-3x servicio-icono" th:classappend="${s.icono}"></i>
+                        <h5 class="mt-3" th:text="${s.nombre}">Servicio</h5>
+                        <p class="text-muted" th:text="${s.descripcion}">Descripción</p>
+                        <p class="precio mb-0">Desde S/ <span th:text="${#numbers.formatDecimal(s.precioUnitario, 1, 2)}">0.10</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contacto" class="section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <h2 class="section-title text-start">Escríbenos</h2>
+                <ul class="list-unstyled contacto-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Av. Ejemplo 123, Lima</li>
+                    <li><i class="fas fa-phone-alt"></i> +51 900 000 000</li>
+                    <li><i class="far fa-clock"></i> Lun – Sáb: 8:00 a. m. – 9:00 p. m.</li>
+                    <li><i class="far fa-envelope"></i> hola@novaprint.pe</li>
+                </ul>
+            </div>
+            <div class="col-lg-7">
+                <form th:action="@{/procesarContacto}" method="post">
+                    <div th:if="${param.exito}" id="mensajeExito" class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>¡Gracias! Recibimos tu mensaje y te responderemos pronto.
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6"><input type="text" name="nombre" class="form-control" placeholder="Tu nombre" required></div>
+                        <div class="col-md-6"><input type="tel" name="telefono" class="form-control" placeholder="Teléfono (opcional)"></div>
+                    </div>
+                    <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Correo electrónico" required></div>
+                    <div class="mb-3"><textarea name="mensaje" class="form-control" rows="4" maxlength="1000" placeholder="¿En qué podemos ayudarte?" required></textarea></div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane me-2"></i>Enviar mensaje</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/scroll.js}"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}"><i class="fas fa-print me-2"></i>NovaPrint</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-label="Abrir menú">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/#inicio}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/#servicios}">Servicios</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/#contacto}">Contacto</a></li>
+            </ul>
+            <div class="d-flex align-items-center gap-2">
+                <th:block th:if="${usuarioNombre == null}">
+                    <a th:href="@{/login}" class="btn btn-outline-primary">Ingresar</a>
+                    <a th:href="@{/registro}" class="btn btn-primary">Registro</a>
+                </th:block>
+                <th:block th:if="${usuarioNombre != null}">
+                    <span class="user-info"><i class="fas fa-user-circle me-1"></i><span th:text="${usuarioNombre}"></span></span>
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-secondary btn-sm">Cerrar sesión</button>
+                    </form>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
